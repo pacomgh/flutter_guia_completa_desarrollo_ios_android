@@ -15,7 +15,7 @@ class _ContadorPageState extends State<ContadorPage>{
   int _conteo = 0;
   
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {//el metodo build lo usamos cuando queremos redibujar el widget
     return Scaffold(
       appBar: AppBar(
         title: Text('Stateful'),
