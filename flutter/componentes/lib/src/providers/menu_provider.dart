@@ -10,7 +10,7 @@ class _MenuProvider{
     //cargarData(); al tener un future async await no necesitamos llamar esto en el constructor
   }
   //future retorna una tarea a resolver en el futuro, se construye cuando termina todo el proceso del metodo
-  cargarData() async{
+  Future<List<dynamic>>cargarData() async{
 
     //cargamos el archivo json
     final resp = await rootBundle.loadString('data/menu_opts.json');//regresa un future
