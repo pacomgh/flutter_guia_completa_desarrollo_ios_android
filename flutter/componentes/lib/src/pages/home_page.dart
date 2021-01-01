@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:componentes/src/providers/menu_provider.dart';
 //utilidades
 import 'package:componentes/src/utils/icono_string_util.dart';
+//pages
+import 'package:componentes/src/pages/alert_page.dart';
 class HomePage extends StatelessWidget {
   //const HomePage({Key key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class HomePage extends StatelessWidget {
         print(snapshot.data);
 
         return ListView(
-          children: _listaItems(snapshot.data),
+          children: _listaItems(snapshot.data, context),
         );
       },
     );
@@ -41,7 +43,7 @@ class HomePage extends StatelessWidget {
     //);
   }
 
-  List<Widget> _listaItems(List<dynamic> data) {
+  List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
 
     final List<Widget> opciones = [];
 
@@ -50,7 +52,20 @@ class HomePage extends StatelessWidget {
         title: Text(opt['texto']),
         leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue, ),
-        onTap: (){},
+        onTap: (){
+          //otra forma de navegacion es con pushnamed
+          Navigator.pushNamed(context, opt['ruta']);
+          
+          
+          /*final route = MaterialPageRoute(
+            builder: (context) => AlertPage(),
+          );
+          //hacemos la navegacion a una nueva pantalla de forma tradicional
+          //.push coloca encima la nueva pagina
+          //context sabe que pagina es la que sigue y la que esta detras
+          //route debe ser material page route y navega a la siguiente pantalla
+          Navigator.push(context, route);*/
+        },
       );
 
       opciones..add(widgetTemp)
