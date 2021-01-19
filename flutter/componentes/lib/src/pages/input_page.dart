@@ -11,6 +11,13 @@ class _InputPageState extends State<InputPage> {
   String _nombre="";
   String _email="";
   String _password="";
+  String _fecha = "";
+  String _opcionSeleccionada = 'Volar';//le damos un valor de la lista para que aparezca por defecto
+  //controlador para relacionar la fecha con la caja de texto
+  TextEditingController _inputFieldDateController = new TextEditingController();
+  //creamos una lista para el menulistitem del dropdown
+  List<String> _poderes = ['Volar', 'Rayos X', 'Super Aliento', 'Super Fuerza'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +32,10 @@ class _InputPageState extends State<InputPage> {
           _crearEmail(),
           Divider(),
           _crearPassword(),
+          Divider(),
+          _crearFecha(context),
+          Divider(),
+          _crearDropdown(),
           Divider(),
           _crearPersona(),
         ],
@@ -93,10 +104,96 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
+  Widget _crearFecha(BuildContext context){
+
+    return TextField(//trabaja de manera independiente al textformfield
+      enableInteractiveSelection: false,//no podra copiar nada del textfield
+      controller: _inputFieldDateController,
+      decoration: InputDecoration(//para editar el diseño del input
+        border: OutlineInputBorder(//cambia a una caja redondeada
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        hintText: 'Fecha de nacimiento',//texto de sugerencia 
+        labelText: 'Fecha de nacimiento',//etiqueta del input
+        suffixIcon: Icon(Icons.perm_contact_calendar),//icono que aparece dentro del input
+        icon: Icon(Icons.calendar_today),//icono del input text, a la izq        
+      ),
+      onTap: (){
+        FocusScope.of(context).requestFocus(new FocusNode());//quitamos el foco de la fecha
+        _selectDate(context);//llamamos el metodo de seleccion de fecha
+      },   
+    );
+
+  }
+
+  _selectDate(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+      context: context,//para saber en que espacio va a colocar el modal
+      initialDate: new DateTime.now(), //la fecha inicial que muestra el calendario
+      firstDate: new DateTime(2018),//el año minimo que acepta
+      lastDate: new DateTime(2025), //el año maximo que acepta
+      locale: Locale('es', 'ES'),
+    );
+
+    if(picked != null){
+      //si contiene algo el picked lo asignamos a la variable fecha
+      setState(() {
+        _fecha = picked.toString();
+        //cambiamos el controller a texto y le asignamos la fecha seleccionada
+        _inputFieldDateController.text = _fecha;
+      });
+    }
+
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown(){
+    //creamos una lista dinamica(sin especificar el tamaño)
+    List<DropdownMenuItem<String>> lista = new List();
+
+    _poderes.forEach((poder) {
+      //agregamos el contenido de la lista como si fuera un menu item
+      lista.add(DropdownMenuItem(
+        child: Text(poder),
+        value: poder,//el contenido del value debe ser del tipo que se pide
+      ));
+     });
+
+     return lista;
+
+  }
+
+  Widget _crearDropdown(){
+    
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0,),
+        Expanded(//lo metemos al expanded para que tome todo el espacio disponible
+          child: DropdownButton(
+            //asignamos la opciona que ha sido seleccionada para que se muestre
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (opt){
+              setState(() {
+                //asignamos a la variable global la variable seleccionada
+                _opcionSeleccionada = opt;
+              });
+            },
+          ),
+        )
+      ],
+    );
+    
+    
+    
+
+  }
+
   Widget _crearPersona() {
     return ListTile(
       title: Text('Nombre es $_nombre'),
       subtitle: Text('Email $_email'),
+      trailing: Text(_opcionSeleccionada),
     );
   }
 
