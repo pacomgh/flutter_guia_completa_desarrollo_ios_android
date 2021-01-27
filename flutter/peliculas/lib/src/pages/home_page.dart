@@ -1,9 +1,11 @@
 //libraries
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:peliculas/src/widgets/card_swiper_widget.dart';
+import 'package:peliculas/src/providers/peliculas_provider.dart';
 
 class HomePage extends StatelessWidget {
   //const HomePage({Key key}) : super(key: key);
+  final peliculasProvider = new PeliculasProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +33,29 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _swiperTarjetas(){
-    return Container(
-      padding: EdgeInsets.only(top: 10.0),
-      //utiliza todo el espacio que encuentre a lo Largo,
-      width: double.infinity,
-      height: 300.0,
-      child: Swiper(
-        //al usar el layout debemos especificar el itemwidth
-        layout: SwiperLayout.STACK,//tipo de animacion de swipe
-        itemWidth: 200.0,
-        itemBuilder: (BuildContext context,int index){
-          return Image.network("http://via.placeholder.com/350x150",
-          //para que la imagen se adapte a las dimensiones que tiene
-          fit: BoxFit.fill,);
-        },
-        itemCount: 3,
-        pagination: new SwiperPagination(),//los puntitos de abajo
-        control: new SwiperControl(),//las fechas laterales
-      ),
+
+    return FutureBuilder(
+      future: peliculasProvider.getEnCines(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+
+        if(snapshot.hasData)
+          return CardSwiper( peliculas: snapshot.data, );
+        else
+          return Container(
+            height: 400.0,
+            child: Center(
+              child: CircularProgressIndicator()
+            )
+          );
+      },
     );
+
+
+    // peliculasProvider.getEnCines();
+
+    // return CardSwiper(
+    //   peliculas: [1,2,3,4,5],
+    // );
+
   }
 }
