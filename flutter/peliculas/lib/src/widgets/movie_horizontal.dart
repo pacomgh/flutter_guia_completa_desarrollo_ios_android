@@ -17,15 +17,13 @@ class MovieHorizontal extends StatelessWidget {
       height: _screenSize.height*0.2,//obtenemos el 20%
       //sirve para deslizar widgets o paginas
       child: PageView(
-        pageSnapping: false,
+        pageSnapping: false,//da mejor flujo
         controller: PageController(
           initialPage: 1,//hace que sea fluido
           viewportFraction: 0.3//cuantas tarjetas se muestran en el viewport
         ),
         children:_tarjetas(context),
       ),
-      
-
     );
   }
 
@@ -36,13 +34,15 @@ class MovieHorizontal extends StatelessWidget {
         margin: EdgeInsets.only(right: 15.0),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPosterImg()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 160.0,
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(pelicula.getPosterImg()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit: BoxFit.cover,
+                  height: 160.0,
+                ),
               ),
             ),
             SizedBox(height: 5.0,),
