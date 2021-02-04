@@ -30,10 +30,13 @@ class MovieHorizontal extends StatelessWidget {
     return Container(
       height: _screenSize.height*0.2,//obtenemos el 20%
       //sirve para deslizar widgets o paginas
-      child: PageView(
+      child: PageView.builder(//usamos el builder para que renderice conforme sea necesario
         pageSnapping: false,//da mejor flujo
         controller: _pageController,
-        children:_tarjetas(context),
+        //children:_tarjetas(context),
+        //especificamos cuantos items tiene que renderizar
+        itemCount: peliculas.length,
+        itemBuilder: (context, i) => _tarjeta(context, peliculas[i]),
       ),
     );
   }
@@ -66,5 +69,42 @@ class MovieHorizontal extends StatelessWidget {
         ),
       );
     }).toList();
+  }
+
+  Widget _tarjeta(BuildContext context, Pelicula pelicula){
+    final tarjeta = Container(
+      margin: EdgeInsets.only(right: 15.0),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(pelicula.getPosterImg()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+                height: 160.0,
+              ),
+            ),
+          ),
+          SizedBox(height: 5.0,),
+          Text(
+            pelicula.title,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ],
+      ),
+    );
+
+    return GestureDetector(
+      child: tarjeta,
+      onTap: (){
+        print('titutlo de la pelicula ${ pelicula.title }');
+        //el routename es el nombre que pusimos en el main en routes
+        //podemos mandar arguments, mandamos el objeto pelicula como argumento
+        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+      },
+    );
   }
 }

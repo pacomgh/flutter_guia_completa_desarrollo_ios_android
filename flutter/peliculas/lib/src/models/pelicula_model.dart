@@ -76,4 +76,12 @@ class Pelicula {
     else
       return 'https://image.tmdb.org/t/p/w500$posterPath';
   }
+
+  getBackgourndImg(){
+
+    if(posterPath==null)
+      return 'https://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png';
+    else
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
+  }
 }

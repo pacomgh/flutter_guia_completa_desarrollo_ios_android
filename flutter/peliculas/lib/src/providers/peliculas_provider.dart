@@ -10,6 +10,7 @@ class PeliculasProvider{
   String _url       = 'api.themoviedb.org';
   String _language  = 'es-ES';
   int _popularesPage = 0;
+  bool _cargando  = false;
 
   List<Pelicula> _populares = [];
 
@@ -38,7 +39,7 @@ class PeliculasProvider{
       final decodedData = json.decode(resp.body);
       //barre cada uno de los resultados y genera la pelicula de acuerdo al modelo
       final peliculas = new Peliculas.fromJsonList(decodedData['results']);
-      print(decodedData['results']);
+      //print(decodedData['results']);
       //retornamos las peliculas ya mapeadas
       return peliculas.items;
     }
@@ -62,7 +63,13 @@ class PeliculasProvider{
   //llamaremos las peliculas mas recientes
   Future<List<Pelicula>> getPopulares() async{
 
+    //si se estancargando datos se regresa un arreglo vacio, no se hace nada
+    if(_cargando ) return [];
+    //cuando no esta cargando es true
+    _cargando = true;
     _popularesPage++;
+
+    //print('Cargando siguientes');
 
     //genera el url de manera sencilla, incluye https://
     final url = Uri.https(_url, '3/movie/popular', {
@@ -77,7 +84,8 @@ class PeliculasProvider{
     _populares.addAll(resp);
     //lo colocamos en el inicio con sink
     popularesSink(_populares);
-
+    //cuand tenemos la respuesta cambiamos la respuesta a falso
+    _cargando = false;
     return resp;
   }
 
