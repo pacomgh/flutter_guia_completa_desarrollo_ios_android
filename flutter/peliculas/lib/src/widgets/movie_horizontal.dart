@@ -10,7 +10,7 @@ class MovieHorizontal extends StatelessWidget {
   MovieHorizontal({@required this.peliculas, @required this.siguientePagina});
 
   final _pageController = new PageController(
-    initialPage: 1,//hace que sea fluido
+    initialPage: 1,
     viewportFraction: 0.3//cuantas tarjetas se muestran en el viewport
   );
 
@@ -77,13 +77,18 @@ class MovieHorizontal extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(pelicula.getPosterImg()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 160.0,
+            //envolvemos el cliprrect porque es el contenedor de la imagen
+            child: Hero(
+              //debemos darle un id que sea unico, usamos el id de la pelicula
+              tag: pelicula.id,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(pelicula.getPosterImg()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit: BoxFit.cover,
+                  height: 160.0,
+                ),
               ),
             ),
           ),
