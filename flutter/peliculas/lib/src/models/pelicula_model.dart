@@ -19,6 +19,9 @@ class Peliculas {
 }
 
 class Pelicula {
+  //creamos un idunico para manejar la tarjeta grande
+  String uniqueId;
+  
   int voteCount;
   int id;
   bool video;

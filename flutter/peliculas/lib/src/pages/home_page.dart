@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:peliculas/src/widgets/card_swiper_widget.dart';
 import 'package:peliculas/src/providers/peliculas_provider.dart';
 import 'package:peliculas/src/widgets/movie_horizontal.dart';
+import 'package:peliculas/src/search/search_delegate.dart';
 
 class HomePage extends StatelessWidget {
   //const HomePage({Key key}) : super(key: key);
@@ -21,9 +22,15 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: (){},
-          ),
-          
+            onPressed: (){
+              showSearch(
+                context: context, 
+                delegate: DataSearch(),
+                //este valor asigna un valor por defecto a la barra de busqueda
+                //query: 'Hola'
+              );
+            },
+          ),          
         ],
       ),
       body: Container(

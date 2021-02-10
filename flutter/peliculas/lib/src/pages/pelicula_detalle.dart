@@ -71,7 +71,7 @@ class PeliculaDetalle extends StatelessWidget {
           //aplicamos el hero al contenedor de la imagen
           Hero(
             //este tag es el que viene de la pantalla anterior, debe ser el mismo
-            tag: pelicula.id,
+            tag: pelicula.uniqueId,//cambiamos el id por el uniqueid
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Image(
