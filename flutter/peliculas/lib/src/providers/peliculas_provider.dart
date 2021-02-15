@@ -105,4 +105,21 @@ class PeliculasProvider{
     return cast.actores;
   }
 
+  //llamaremos las peliculas mas recientes
+  Future<List<Pelicula>> buscarPelicula(String query) async{
+
+    final url = Uri.https(_url, '3/search/movie', {
+      //enviamos los parametros del mapa
+      'api_key': _apiKey,
+      'language': _language,
+      'query' : query,
+    });
+
+    return await _procesarRespuesta(url);
+
+
+  }
+
+
+
 }

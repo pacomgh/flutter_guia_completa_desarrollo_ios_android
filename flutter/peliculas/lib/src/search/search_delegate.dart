@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/src/models/pelicula_model.dart';
+import 'package:peliculas/src/providers/peliculas_provider.dart';
 
 class DataSearch extends SearchDelegate{
 
   String seleccion="";
+  final peliculasProvide = new PeliculasProvider();
 
   final peliculas = [
     'Spiderman',
@@ -64,11 +67,57 @@ class DataSearch extends SearchDelegate{
     @override
     Widget buildSuggestions(BuildContext context) {
 
-      final listaSugerida = ( query.isEmpty )//si el query esta vacio, enviamos peliculas recientes
+      if(query.isEmpty){
+        return Container();
+      }
+
+      return FutureBuilder(
+        future: peliculasProvide.buscarPelicula(query),
+        builder: (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
+          if(snapshot.hasData){
+            final peliculas = snapshot.data;
+            return ListView(//aqui mostraremos la data que es regresada
+            //convertimos el arreglo de peliculas en un arreglo
+              children: peliculas.map((pelicula) {
+                return ListTile(
+                  leading: FadeInImage(
+                    placeholder: AssetImage('assets/img/no-image.jpg'), 
+                    image: NetworkImage(pelicula.getPosterImg()),
+                    width: 50.0,
+                    fit: BoxFit.cover,
+                  ),
+                  title: Text(pelicula.title),
+                  subtitle: Text(pelicula.originalTitle),
+                  onTap: (){
+                    //cerramos la busqueda
+                    close(context, null);
+                    //hacemos que el uniqueid sea nulo para que no marque error al recibir el tag del hero
+                    pelicula.uniqueId = '';
+                    //navegamos hacia la pagina de la descripcion
+                    Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+                  },
+                );
+              }).toList(),
+            );
+          }else{
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      );
+    }
+
+
+
+  /*@override
+    Widget buildSuggestions(BuildContext context) {
+
+      final listaSugerida = ( query.isEmpty )//si el query esta vacio, muestra las peliculas recientes
                             ? peliculasRecientes
-                            : peliculas.where(//sino seleccionamos la pelicula en donde inicie el nombre de
-                              (p) => p.toLowerCase().startsWith(query.toLowerCase())//la pelicula con el query escrito
-                            ).toList();//lo regresamos en una lista
+                            : peliculas.where(//sino seleccionamos la pelicula del query escrito
+                              (p) => p.toLowerCase().startsWith(query.toLowerCase())//la pelicula que inicie con el query escrito
+                            ).toList();//lo regresamos en una lista porque regresa un iterable
 
     // Son las sugerenias que aparecen al escribir
     return ListView.builder(
@@ -84,6 +133,6 @@ class DataSearch extends SearchDelegate{
         );
       },
     );
-  }
+  }*/
 
 }
