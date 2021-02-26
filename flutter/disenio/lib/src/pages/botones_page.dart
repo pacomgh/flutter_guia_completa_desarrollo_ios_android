@@ -1,13 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'dart:math';
 
 class BotonesPage extends StatelessWidget {
   //const BotonesPage({Key key}) : super(key: key);
-//
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _bottomNavigationBar2(),
       body: Stack(
         children: <Widget>[
           _fondoApp(),
@@ -84,6 +87,67 @@ class BotonesPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  //this method was implemented in the course, few thing change or was deprecated
+  Widget _bottomNavigationBar(BuildContext context){
+    //regresamos un theme para poder personalizar la barra y no cambiar el tema global de la aplicacion
+    return Theme(
+      //hacemos una copia del tema
+      data: Theme.of(context).copyWith(
+        //cambiar el color de fondo, se llama canva
+        canvasColor: Color.fromRGBO(55, 57, 84, 1.0),
+        primaryColor: Colors.pinkAccent,
+        //cambiar los colores a otro color(gris)
+        textTheme: Theme.of(context).textTheme.copyWith(
+          caption: TextStyle(color: Color.fromRGBO(116, 117, 152, 1.0))
+        )
+      ),            
+      child: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today, size: 30.0),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bubble_chart, size: 30.0),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.supervised_user_circle, size: 30.0),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  //this method was created taking the base method on the course and implemented few things
+  //to look like in the course and update deprecated things
+  Widget _bottomNavigationBar2(){
+    return BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      selectedItemColor: Colors.pinkAccent,
+      unselectedItemColor: Color.fromRGBO(116, 117, 152, 1.0),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today, size: 30.0),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bubble_chart, size: 30.0),
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.supervised_user_circle, size: 30.0),
+          label: '',
+        ),
+      ],
     );
   }
 }
