@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
+      //home: _TempHomeScreen(),
       //rutas
       initialRoute: 'botones',
       routes: {
@@ -27,5 +28,15 @@ class MyApp extends StatelessWidget {
         'botones':(BuildContext context) => BotonesPage(),
       },      
     );
-  }
+  }  
 }
+
+/*class _TempHomeScreen extends StatelessWidget{
+    @override
+    Widget Build(BuildContext context){
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [],
+      );
+    }
+}*/
