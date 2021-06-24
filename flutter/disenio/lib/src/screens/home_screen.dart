@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:disenio/widgets/background.dart';
-import 'package:disenio/widgets/page_title.dart';
+import 'package:disenio/widgets/card_table.dart';
 import 'package:disenio/widgets/custom_bottom_navigation.dart';
+import 'package:disenio/widgets/page_title.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
         children:[
           //backgorund
           Background(),
+          //home body
           _HomeBody(),
         ]
      ),
@@ -32,6 +34,8 @@ class _HomeBody extends StatelessWidget {
         children: [
           //titulos
           PageTitle(),
+          //tabla de botones tipo card
+          CardTable(),
         ],
       ),           
     );
