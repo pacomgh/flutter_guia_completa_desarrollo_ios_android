@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     //.copyWith(//statusBarColor: Colors.white));
 
     return MaterialApp(
+      theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: 'home_screen',

@@ -48,7 +48,7 @@ class Page1 extends StatelessWidget {
 
 class Background extends StatelessWidget {
   const Background({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -66,7 +66,7 @@ class Background extends StatelessWidget {
 
 class MainContent extends StatelessWidget {
   const MainContent({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override

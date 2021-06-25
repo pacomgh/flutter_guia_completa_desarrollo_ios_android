@@ -28,7 +28,7 @@ class BasicDesignScreen extends StatelessWidget {
 
 class Title extends StatelessWidget {
   const Title({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class Title extends StatelessWidget {
 
 class ButtonSection extends StatelessWidget {
   const ButtonSection({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -81,10 +81,10 @@ class CustomBouton extends StatelessWidget {
   final String text;
 
   const CustomBouton({
-    Key? key, 
+    Key key, 
     //usamos required para indicar que es obligatorio dart v2.12+
-    required this.icon, 
-    required this.text,
+     this.icon, 
+     this.text,
   }) : super(key: key);
 
   @override
