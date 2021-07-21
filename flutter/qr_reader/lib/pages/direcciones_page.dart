@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_reader/pages/mapas_page.dart';
 
 class DireccionesPage extends StatelessWidget {
   //const DireccionesPage({Key? key}) : super(key: key);
@@ -11,10 +12,3 @@ class DireccionesPage extends StatelessWidget {
   }
 }
 
-class _HomePageBody extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    final currentIndex = 1;
-  }
-}
