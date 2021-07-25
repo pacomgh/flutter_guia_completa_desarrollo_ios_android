@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: DireccionesPage(),
+      body: _HomePageBody(),
       
      bottomNavigationBar: CustomNavigationBar(),
      floatingActionButton: ScanButton(),
@@ -35,8 +35,9 @@ class HomePage extends StatelessWidget {
 }
 
 class _HomePageBody extends StatelessWidget {
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {//el provider se encuentra en el context
 
     //obtener el selected menu opt
     final uiProvider = Provider.of<UiProvider>(context);

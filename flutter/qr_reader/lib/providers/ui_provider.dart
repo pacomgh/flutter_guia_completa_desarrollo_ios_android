@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 //extendemos de changenotifier para que escuche los cambios
 class UiProvider extends ChangeNotifier{
