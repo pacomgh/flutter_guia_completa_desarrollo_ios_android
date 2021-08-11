@@ -16,4 +16,4 @@ class ScanButton extends StatelessWidget {
       },
     );
   }
-}
+} 
